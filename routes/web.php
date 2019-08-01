@@ -15,9 +15,9 @@ Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
 
-Route::get('/scan/{id}' , 'QRCodeController@index');
+Route::get('/scan/{user}' , 'QRCodeController@index');
 
-Route::post('/scan/{id}' , 'UserHistoriesController@store');
+Route::post('/scan/{user}' , 'UserHistoriesController@store');
 
 Route::resource('admin', 'AdminController');
 

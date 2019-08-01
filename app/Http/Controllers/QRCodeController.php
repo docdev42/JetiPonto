@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use Auth;
 
 class QRCodeController extends Controller
 {
@@ -12,10 +13,24 @@ class QRCodeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($id)
-    {        
-        $user=User::FindOrFail($id);        
-        return view('auth.QrLogin', compact('user'));
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+                
+    }    
+    
+    public function index(User $user)
+    {               
+        if($user == Auth::user())
+        {
+            return view('auth.QrLogin', compact('user'));                
+        }
+        else
+        {
+            return redirect('/');
+        }
+                    
     }
 
     /**

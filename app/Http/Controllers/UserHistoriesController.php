@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use App\User;
 use App\History;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Collection;
 
 class UserHistoriesController extends Controller
 {
@@ -18,6 +19,12 @@ class UserHistoriesController extends Controller
     public function index()
     {
         //
+    }
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+        
     }
 
     /**
@@ -36,15 +43,15 @@ class UserHistoriesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store($id)
-    {   
-        
-        $user = User::findOrFail($id);
-        $lastday = History::latest('date')->get('date')->first();
-        $today= Carbon::Today("d");
-        dd($lastday);
-        
-            if($today != $lastday)
+    public function store(User $user)
+    {      
+        if($user == Auth::user())
+        {    
+            $history = $user->histories;
+            $lastday = $history->last();
+            $today= Carbon::Today();
+              
+            if($lastday->date != $today)
             {
                 $attributes = [
                     'user_id' => $user->id,
@@ -53,12 +60,22 @@ class UserHistoriesController extends Controller
                 ];
                 $user->addHistory($attributes);
             }
-                  
-                //History::create([
-                //    'user_id' => $user->id,
-                //    'date' => Carbon::Today(),
-                //    'entramanha' => Carbon::Now()
-                //]);
+            elseif($lastday->saimanha == null)
+            {
+                $lastday->saimanha = Carbon::Now();
+                $lastday->save();
+            }
+            elseif($lastday->entratarde == null)
+            {
+                $lastday->entratarde = Carbon::Now();
+                $lastday->save();
+            }
+            elseif($lastday->saitarde == null)
+            {
+                $lastday->saitarde = Carbon::Now();
+                $lastday->save();
+            }
+        }             
                   
        
     }
