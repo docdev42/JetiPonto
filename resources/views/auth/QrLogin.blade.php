@@ -1,20 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-        <div id="app">
-            <h1>Olá {{ $user->name }}</h1>
-            
-            <?php $email=$user->email ;
-            ?>
-            
-            <qrscanner email="{{ $user->email }}" id="{{ $user->id }}"></qrscanner>
-        </div>        
+        <div id="app">          
+            <div class="column is-mobile">
+            <qrscanner email="{{ $user->email }}" user="{{ $user->name }}" id="{{ $user->id }}"></qrscanner>
                 
-        <form method="post" action="/scan/{{ $user->id }}">
-        @csrf
-            <button>vai</button>
-        </form>
-            
-            
+            </div>
+        </div>  
         
 @endsection

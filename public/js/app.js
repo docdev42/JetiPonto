@@ -2492,6 +2492,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -2499,13 +2509,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   props: {
     email: String,
-    id: String
+    id: String,
+    user: String
   },
   data: function data() {
     return {
       result: '',
       error: '',
-      csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+      csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+      worked: '',
+      notworked: ''
     };
   },
   methods: {
@@ -2513,7 +2526,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.result = result;
 
       if (result === this.email) {
-        fetch("/scan/".concat(this.id), {
+        this.worked = 'Ponto Checado com Sucesso.', fetch("/scan/".concat(this.id), {
           method: 'post',
           headers: {
             'content-type': 'application/json',
@@ -2527,7 +2540,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           return console.log(err);
         });
       } else {
-        this.result = 'não deu';
+        this.notworked = 'QrCode não corresponde ao usuário.';
       }
     },
     onInit: function () {
@@ -2551,13 +2564,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _context.t0 = _context["catch"](0);
 
                 if (_context.t0.name === 'NotAllowedError') {
-                  this.error = "Você precisa dar acesso a camera.";
+                  this.error = "ERRO: Você precisa dar acesso à camera.";
                 } else if (_context.t0.name === 'NotFoundError') {
-                  this.error = "ERROR: no camera on this device";
+                  this.error = "ERRO: Dispositivo sem camera.";
                 } else if (_context.t0.name === 'NotSupportedError') {
                   this.error = "ERROR: secure context required (HTTPS, localhost)";
                 } else if (_context.t0.name === 'NotReadableError') {
-                  this.error = "ERROR: is the camera already in use?";
+                  this.error = "ERRO: certifique-se de que a camera não está em uso.";
                 } else if (_context.t0.name === 'OverconstrainedError') {
                   this.error = "ERROR: installed cameras are not suitable";
                 } else if (_context.t0.name === 'StreamApiNotSupportedError') {
@@ -38521,23 +38534,43 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
+    { staticClass: "hero is-fullheight is-medium is-primary is-bold" },
     [
-      _c("p", { staticClass: "error" }, [_vm._v(_vm._s(_vm.error))]),
-      _vm._v(" "),
-      _c("p", { staticClass: "decode-result" }, [
-        _vm._v("Last result: "),
-        _c("b", [_vm._v(_vm._s(_vm.result))])
-      ]),
-      _vm._v(
-        "\n  " +
-          _vm._s(_vm.result) +
-          "\n\n  " +
-          _vm._s(_vm.email) +
-          "\n  \n    \n\n  "
-      ),
-      _c("qrcode-stream", { on: { decode: _vm.onDecode, init: _vm.onInit } })
-    ],
-    1
+      _c("div", { staticClass: "hero-body" }, [
+        _c("div", { staticClass: "container" }, [
+          _c("div", { staticClass: "columns is-centered" }, [
+            _c("article", { staticClass: "card is-rounded" }, [
+              _c("div", { staticClass: "card-content" }, [
+                _c(
+                  "div",
+                  { staticClass: "column has-text-centered" },
+                  [
+                    _c("h1", [_vm._v(_vm._s(_vm.user))]),
+                    _vm._v(" "),
+                    _c("p", { staticClass: "error" }, [
+                      _vm._v(_vm._s(_vm.error))
+                    ]),
+                    _vm._v(" "),
+                    _c("p", { staticClass: "decode-result" }, [
+                      _c("b", [_vm._v(_vm._s(_vm.worked))])
+                    ]),
+                    _vm._v(" "),
+                    _c("p", { staticClass: "decode-result" }, [
+                      _c("b", [_vm._v(_vm._s(_vm.notworked))])
+                    ]),
+                    _vm._v(" "),
+                    _c("qrcode-stream", {
+                      on: { decode: _vm.onDecode, init: _vm.onInit }
+                    })
+                  ],
+                  1
+                )
+              ])
+            ])
+          ])
+        ])
+      ])
+    ]
   )
 }
 var staticRenderFns = []

@@ -1,15 +1,25 @@
 <template>
-  <div>
-    <p class="error">{{ error }}</p>
-
-    <p class="decode-result">Last result: <b>{{ result }}</b></p>
-    {{ result }}
-
-    {{ email }}
-    
-      
-
-    <qrcode-stream @decode="onDecode" @init="onInit" />
+  <div class="hero is-fullheight is-medium is-primary is-bold">  
+    <div class="hero-body">
+      <div class="container">
+        <div class="columns is-centered">
+          <article class="card is-rounded">
+            <div class="card-content">  
+                <div class="column has-text-centered">
+                  <h1>{{ user }}</h1>
+                  <p class="error">{{ error }}</p>
+                  
+                  <p class="decode-result"><b>{{ worked }}</b></p>
+                  <p class="decode-result"><b>{{ notworked }}</b></p>   
+                   
+                
+                  <qrcode-stream @decode="onDecode" @init="onInit" />
+                </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -21,14 +31,17 @@ export default {
   components: { QrcodeStream },
   props:{
     email : String,
-    id : String},
+    id : String,
+    user : String},
    
 
   data () {
     return {
       result: '',
       error: '',
-      csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),                     
+      csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+      worked: '',
+      notworked: '',                     
     }    
   },
   
@@ -39,6 +52,7 @@ export default {
     onDecode (result) {
         this.result = result              
         if(result === this.email ){
+          this.worked = 'Ponto Checado com Sucesso.',
           fetch(`/scan/${this.id}`, {
             method: 'post',
             headers: {
@@ -52,7 +66,7 @@ export default {
           }).catch (err => console.log(err));          
                                
         }else{
-          this.result = 'não deu'
+          this.notworked = 'QrCode não corresponde ao usuário.'
         }     
              
     },  
@@ -62,13 +76,13 @@ export default {
         await promise
       } catch (error) {
         if (error.name === 'NotAllowedError') {
-          this.error = "Você precisa dar acesso a camera."
+          this.error = "ERRO: Você precisa dar acesso à camera."
         } else if (error.name === 'NotFoundError') {
-          this.error = "ERROR: no camera on this device"
+          this.error = "ERRO: Dispositivo sem camera."
         } else if (error.name === 'NotSupportedError') {
           this.error = "ERROR: secure context required (HTTPS, localhost)"
         } else if (error.name === 'NotReadableError') {
-          this.error = "ERROR: is the camera already in use?"
+          this.error = "ERRO: certifique-se de que a camera não está em uso."
         } else if (error.name === 'OverconstrainedError') {
           this.error = "ERROR: installed cameras are not suitable"
         } else if (error.name === 'StreamApiNotSupportedError') {

@@ -18,15 +18,15 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">    
-    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     <script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js"></script>
     <script defer src="{{ asset('js/jetponto.js') }}"></script>
        
 </head>
 <body>
     <div>
-        <main class="py-4">
+        <main>
             @yield('content')
         </main>
     </div>

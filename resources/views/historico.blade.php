@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+<!-- navbar -->
 <nav class="navbar is-dark" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
         <a class="navbar-item" href="/">
@@ -26,12 +27,9 @@
 
             <a href="/register" class="navbar-item">
                 Novo Colaborador
-            </a>
+            </a>        
 
-            <a href="/admin/relatorio/{{ $date }}" class="navbar-item">
-                Relatório do Dia
-            </a>
-                        
+            
         </div>
 
         <div class="navbar-start nav-right" >
@@ -57,28 +55,59 @@
     </div>
 </nav>
 
-<div class="container">
-    <div class="card">
-        <div class="card-content">
-            <div class="level section">
-                <div class="level-left">
-                    <div class="level-item">
-                    <p class="title is-4">{{ $user->name }}</p>
-                    </div>
-                </div>
+<!-- end navbar -->
 
-                <div class="level-right">
-                    <div class="level-item">
-                        {!! QrCode::size('500')->generate($user->email); !!}
-                    </div>
-                </div>
-            </div>
-        </div>
+<div>
+    <div class="column">
+        <h1>{{ $user->name }}</h1>
+        <table class="table is-responsive is-hoverable">
+        <thead>
+            <tr>
+            <th class="has-text-centered">Mês</th>            
+            <th class="has-text-centered">Dia</th>
+            <th class="has-text-centered">Entrada</th>
+            <th class="has-text-centered">Saida Para Almoço</th>
+            <th class="has-text-centered">Entrada</th>  
+            <th class="has-text-centered">Fim de Expediente</th>             
+        </tr>
+        </thead>
+        <tbody>
+            @foreach($histories as $history)
+        <tr>
+            <td class="has-text-centered">{{ $history->date->month }}</td>
+            <td class="has-text-centered">{{ $history->date->day }}</td>
+            <td class="has-text-centered">
+                @if($history->entramanha != null)
+                
+                    {{ $history->entramanha->toTimeString() }} 
+                
+                @endif
+            </td>
+            <td class="has-text-centered">
+                @if($history->saimanha != null) 
+                
+                    {{ $history->saimanha->toTimeString() }}
+                
+                @endif
+                </td>
+            <td class="has-text-centered">
+                @if($history->entratarde != null)
+                
+                    {{ $history->entratarde->toTimeString() }}
+                
+                @endif
+            </td>  
+            <td class="has-text-centered">
+                @if($history->saitarde != null)
+                
+                    {{ $history->saitarde->toTimeString() }}</td>             
+                
+                @endif
+        </tr>
+            @endforeach      
+        </tbody>
+        </table>
     </div>
 </div>
-
-
-
-
 
 @endsection

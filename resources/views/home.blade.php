@@ -13,7 +13,7 @@
             </div>
 
               <h1 class="title has-text-dark">Bem Vindo {{ Auth::user()->name }}</h1>
-
+            
             <div>
               <a href="/scan/{{ Auth::user()->id }}">
               <button class="button is-primary is-medium is-fullwidth">

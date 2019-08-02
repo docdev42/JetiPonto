@@ -21,28 +21,18 @@
                 Home
             </a>
 
+            <a href="/admin" class="navbar-item">
+                Colaboradores
+            </a>
+
             <a href="/register" class="navbar-item">
                 Novo Colaborador
             </a>
 
-            <a href="#" class="navbar-item">
-                Colaboradores
+            <a href="/admin/relatorio/{{ $date }}" class="navbar-item">
+                Relatório do Dia
             </a>
-
-            <div class="navbar-item has-dropdown is-hoverable">
-                <a href="#" class="navbar-link">
-                    Relatórios
-                </a>
-
-                <div class="navbar-dropdown">
-                    <a href="#" class="navbar-item">
-                        Diário
-                    </a>
-                    <a href="#" class="navbar-item">
-                        Mensal
-                    </a>          
-                </div>
-            </div>
+                        
         </div>
 
         <div class="navbar-start nav-right" >
@@ -73,19 +63,25 @@
     <table class="table is-responsive">
     <thead>
         <tr>
-        <th>Colaborador</th>
-        <th></th>
-        <th></th>   
-        <th></th>     
+        <th class="has-text-centered">Colaborador</th>
+        <th class="has-text-centered">Relatórios</th>
+        <th class="has-text-centered">Editar Informações</th>
+        <th class="has-text-centered">Apagar Colaborador</th>             
       </tr>
     </thead>
     <tbody>
         @foreach($users as $user)
       <tr>
-        <td>{{ $user->name }}</td>
-        <td><i class="fas fa-pencil-alt"></i></td>
-        <td><i class="fas fa-trash-alt"></i></td>
-        <td><a href="/admin/{{ $user->id }}">code</a></td>        
+        <td class="has-text-centered">{{ $user->name }}</td>
+        <td class="has-text-centered"><a href="/admin/{{ $user->id }}/relatorio"><button class="btn"><i class="far fa-address-book is-size-4"></i></button></a></td>
+        <td class="has-text-centered"><a href="/admin/{{ $user->id }}"><button class="btn"><i class="fas fa-pencil-alt is-size-4"></i></button></a></td>
+        <td class="has-text-centered">
+            <form method="POST" action="/admin/{{ $user->id }}" >
+                @method('DELETE')
+                @csrf
+                <button class="btn" type="submit"><i class="fas fa-trash-alt is-size-4"></i></button>
+            </form>   
+        </td>             
       </tr>
         @endforeach      
     </tbody>

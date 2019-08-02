@@ -87,42 +87,39 @@ class UserHistoriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
     public function show($id)
-    {
-        //
+    {   
+
+        $user=User::findOrFail($id);
+        $histories = $user->histories;
+
+        if(Auth::user()->admin == true){
+
+            return view('historico', compact('user','histories'));
+
+        }
+        else
+        {
+            return redirect('/');
+
+        }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function daily($date)
     {
-        //
-    }
+        
+        $histories=History::where('date', $date)->get();
+        $users = User::all();
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
+        if(Auth::user()->admin == true){
+            return view('daily', compact('histories','users','date'));
+        }
+        else
+        {
+            return redirect('/');
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        }
     }
+  
 }

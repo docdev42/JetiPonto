@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\History;
+use Carbon\Carbon;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -20,8 +22,9 @@ class AdminController extends Controller
 
     public function index()
     {
-        $users = User::all();
-        return view('dashboard', compact('users'));
+        $date = Carbon::Today()->toDateString();
+        $users = User::all();        
+        return view('dashboard', compact('users','date'));
     }
  
 
@@ -34,9 +37,20 @@ class AdminController extends Controller
 
     public function show($id)
     {        
+        $date = Carbon::Today()->toDateString();
         $user=User::findOrFail($id);
-        return view('show', compact('user'));
+        return view('show', compact('user','date'));
     }  
+
+    public function destroy($id)
+    {
+        $user=User::findOrFail($id);
+        $user->delete();
+
+        return redirect('/admin');
+        
+    }
+
 
         
 };

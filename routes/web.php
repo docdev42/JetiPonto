@@ -21,11 +21,6 @@ Route::post('/scan/{user}' , 'UserHistoriesController@store');
 
 Route::resource('admin', 'AdminController');
 
+Route::get('/admin/{user}/relatorio', 'UserHistoriesController@show');
 
-
-//Route::get('/admin/register', 'AdminController@create'); --->>> VIRA O CREATE
-
-//Route::post('/admin/register', 'Auth\RegisterController@store'); --->>>  VIRA O STORE
-
-
-
+Route::get('/admin/relatorio/{date}', 'UserHistoriesController@daily');
