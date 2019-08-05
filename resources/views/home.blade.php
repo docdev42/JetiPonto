@@ -16,8 +16,8 @@
             
             <div>
               <a href="/scan/{{ Auth::user()->id }}">
-              <button class="button is-primary is-medium is-fullwidth">
-              Check-in
+              <button class="button is-jeti is-medium is-fullwidth">
+              <p class="is-white">Check-in</p>
               </a>  
             </div>
 
@@ -26,8 +26,8 @@
             <a href="{{ route('logout') }}"
                 onclick="event.preventDefault();
                 document.getElementById('logout-form').submit();">
-              <button class="button is-primary is-medium is-fullwidth">
-                Sair
+              <button class="button is-jeti is-medium is-fullwidth">
+              <p class="is-white">Sair</p>
             </a>
             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                 @csrf

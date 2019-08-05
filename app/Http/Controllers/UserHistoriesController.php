@@ -8,6 +8,7 @@ use App\User;
 use App\History;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Collection;
+use Date;
 
 class UserHistoriesController extends Controller
 {
@@ -23,7 +24,7 @@ class UserHistoriesController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth');       
         
     }
 
@@ -46,19 +47,20 @@ class UserHistoriesController extends Controller
     public function store(User $user)
     {      
         if($user == Auth::user())
-        {    
+        {            
             $history = $user->histories;
             $lastday = $history->last();
             $today= Carbon::Today();
               
             if($lastday->date != $today)
-            {
+            {                
                 $attributes = [
                     'user_id' => $user->id,
                     'date' => Carbon::Today(),
                     'entramanha' => Carbon::Now()
                 ];
                 $user->addHistory($attributes);
+                                
             }
             elseif($lastday->saimanha == null)
             {
@@ -93,10 +95,13 @@ class UserHistoriesController extends Controller
 
         $user=User::findOrFail($id);
         $histories = $user->histories;
-
+        $date = Carbon::Today()->toDateString();
+        
+             
+                
         if(Auth::user()->admin == true){
 
-            return view('historico', compact('user','histories'));
+            return view('historico', compact('user','histories','date'));
 
         }
         else

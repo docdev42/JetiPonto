@@ -60,10 +60,55 @@
 <div class="container">
     <div class="card">
         <div class="card-content">
+        <div class="level-left">Editar Registro de Colaborador</div>
             <div class="level section">
+            
+                
                 <div class="level-left">
                     <div class="level-item">
-                    <p class="title is-4">{{ $user->name }}</p>
+
+                    <form method="POST" action="/admin/{{ $user->id }}">
+                        @method('PATCH')
+                        @csrf
+
+
+                        <div class="form-group row">
+                            <label for="name" class="col-md-4 label text-md-right">{{ __('Nome') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ $user->name }}" required autocomplete="name" autofocus>
+
+                                @error('name')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="email" class="col-md-4 label text-md-right">{{ __('Endereço de E-mail') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $user->email }}" required autocomplete="email">
+                                <?php $_POST['email'] = 'email'?>
+                                
+                                @error('email')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>                                         
+
+                        <div class="form-group row mb-0">
+                            <div class="col-md-6 offset-md-4">
+                                <button type="submit" class="btn btn-primary">
+                                    {{ __('Atualizar') }}
+                                </button>                                
+                            </div>
+                        </div>
+                    </form>
                     </div>
                 </div>
 

@@ -52,7 +52,7 @@ export default {
     onDecode (result) {
         this.result = result              
         if(result === this.email ){
-          this.worked = 'Ponto Checado com Sucesso.',
+          this.worked = 'Ponto Registrado com Sucesso.',
           fetch(`/scan/${this.id}`, {
             method: 'post',
             headers: {

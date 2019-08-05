@@ -27,7 +27,11 @@
 
             <a href="/register" class="navbar-item">
                 Novo Colaborador
-            </a>        
+            </a> 
+            
+            <a href="/admin/relatorio/{{ $date }}" class="navbar-item">
+                Relatório do Dia
+            </a>
 
             
         </div>
@@ -74,7 +78,9 @@
         <tbody>
             @foreach($histories as $history)
         <tr>
-            <td class="has-text-centered">{{ $history->date->month }}</td>
+            <td class="has-text-centered">
+                {{ $history->date->format('F') }}
+            </td>
             <td class="has-text-centered">{{ $history->date->day }}</td>
             <td class="has-text-centered">
                 @if($history->entramanha != null)

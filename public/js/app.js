@@ -2526,7 +2526,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.result = result;
 
       if (result === this.email) {
-        this.worked = 'Ponto Checado com Sucesso.', fetch("/scan/".concat(this.id), {
+        this.worked = 'Ponto Registrado com Sucesso.', fetch("/scan/".concat(this.id), {
           method: 'post',
           headers: {
             'content-type': 'application/json',

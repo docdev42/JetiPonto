@@ -51,6 +51,17 @@ class AdminController extends Controller
         
     }
 
+    public function update($id)
+    {
+        $user = User::findOrFail($id);
+        $user->update(request()->validate([
+            'name'=>'required',
+            'email'=>'required'
+            ]));       
+        
+
+        return redirect('/admin'); 
+    }
 
         
 };

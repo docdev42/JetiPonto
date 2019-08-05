@@ -24,3 +24,4 @@ Route::resource('admin', 'AdminController');
 Route::get('/admin/{user}/relatorio', 'UserHistoriesController@show');
 
 Route::get('/admin/relatorio/{date}', 'UserHistoriesController@daily');
+
