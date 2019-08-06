@@ -61,59 +61,64 @@
 
 <!-- end navbar -->
 
-<div>
-    <div class="column">
-        <h1>{{ $user->name }}</h1>
+
+<div class="card">   
+    <div class="card-header title is-4">
+        <h1>Histórico de Pontos {{ $user->name }}</h1>
+    </div>
+    <div class="card-body">
         <table class="table is-responsive is-hoverable">
-        <thead>
+            <thead>
+                <tr>
+                <th class="has-text-centered">Mês</th>            
+                <th class="has-text-centered">Dia</th>
+                <th class="has-text-centered">Entrada</th>
+                <th class="has-text-centered">Saida Para Almoço</th>
+                <th class="has-text-centered">Entrada</th>  
+                <th class="has-text-centered">Fim de Expediente</th>             
+            </tr>
+            </thead>
+            <tbody>
+                @foreach($histories as $history)
             <tr>
-            <th class="has-text-centered">Mês</th>            
-            <th class="has-text-centered">Dia</th>
-            <th class="has-text-centered">Entrada</th>
-            <th class="has-text-centered">Saida Para Almoço</th>
-            <th class="has-text-centered">Entrada</th>  
-            <th class="has-text-centered">Fim de Expediente</th>             
-        </tr>
-        </thead>
-        <tbody>
-            @foreach($histories as $history)
-        <tr>
-            <td class="has-text-centered">
-                {{ $history->date->formatLocalized('%B') }}
-            </td>
-            <td class="has-text-centered">{{ $history->date->day }}</td>
-            <td class="has-text-centered">
-                @if($history->entramanha != null)
-                
-                    {{ $history->entramanha->toTimeString() }} 
-                
-                @endif
-            </td>
-            <td class="has-text-centered">
-                @if($history->saimanha != null) 
-                
-                    {{ $history->saimanha->toTimeString() }}
-                
-                @endif
+                <td class="has-text-centered">
+                    {{ $history->date->formatLocalized('%B') }}
                 </td>
-            <td class="has-text-centered">
-                @if($history->entratarde != null)
-                
-                    {{ $history->entratarde->toTimeString() }}
-                
-                @endif
-            </td>  
-            <td class="has-text-centered">
-                @if($history->saitarde != null)
-                
-                    {{ $history->saitarde->toTimeString() }}</td>             
-                
-                @endif
-        </tr>
-            @endforeach      
-        </tbody>
+                <td class="has-text-centered">{{ $history->date->day }}</td>
+                <td class="has-text-centered">
+                    @if($history->entramanha != null)
+                    
+                        {{ $history->entramanha->toTimeString() }} 
+                    
+                    @endif
+                </td>
+                <td class="has-text-centered">
+                    @if($history->saimanha != null) 
+                    
+                        {{ $history->saimanha->toTimeString() }}
+                    
+                    @endif
+                    </td>
+                <td class="has-text-centered">
+                    @if($history->entratarde != null)
+                    
+                        {{ $history->entratarde->toTimeString() }}
+                    
+                    @endif
+                </td>  
+                <td class="has-text-centered">
+                    @if($history->saitarde != null)
+                    
+                        {{ $history->saitarde->toTimeString() }}</td>             
+                    
+                    @endif
+            </tr>
+                @endforeach      
+            </tbody>
         </table>
     </div>
+   
 </div>
+
 
 @endsection

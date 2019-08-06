@@ -23,7 +23,8 @@ class AdminController extends Controller
     public function index()
     {
         $date = Carbon::Today()->toDateString();
-        $users = User::all();        
+        $users = User::orderBy('name')->get();
+        //dd($users);       
         return view('dashboard', compact('users','date'));
     }
  

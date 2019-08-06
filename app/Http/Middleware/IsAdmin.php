@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 
 Use Auth;
-
+         
 use Closure;
 
 class IsAdmin

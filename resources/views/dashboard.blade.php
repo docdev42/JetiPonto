@@ -60,33 +60,35 @@
 
 <!-- end navbar -->
 
-<div class="container">
-    <table class="table is-responsive">
-        <thead>
+<div class="card">
+    <div class="card-body">
+        <table class="table is-responsive">
+            <thead>
+                <tr>
+                <th class="has-text-centered">Colaborador</th>
+                <th class="has-text-centered">Relatórios</th>
+                <th class="has-text-centered">Editar Informações</th>
+                <th class="has-text-centered">Apagar Colaborador</th>             
+            </tr>
+            </thead>
+            <tbody>
+                @foreach($users as $user)
             <tr>
-            <th class="has-text-centered">Colaborador</th>
-            <th class="has-text-centered">Relatórios</th>
-            <th class="has-text-centered">Editar Informações</th>
-            <th class="has-text-centered">Apagar Colaborador</th>             
-        </tr>
-        </thead>
-        <tbody>
-            @foreach($users as $user)
-        <tr>
-            <td class="has-text-centered">{{ $user->name }}</td>
-            <td class="has-text-centered"><a href="/admin/{{ $user->id }}/relatorio"><button class="btn"><i class="far fa-address-book is-size-4"></i></button></a></td>
-            <td class="has-text-centered"><a href="/admin/{{ $user->id }}"><button class="btn"><i class="fas fa-pencil-alt is-size-4"></i></button></a></td>
-            <td class="has-text-centered">
-                <form method="POST" action="/admin/{{ $user->id }}" >
-                    @method('DELETE')
-                    @csrf
-                    <button class="btn" type="submit"><i class="fas fa-trash-alt is-size-4"></i></button>
-                </form>   
-            </td>             
-        </tr>
-            @endforeach      
-        </tbody>
-    </table>
+                <td class="has-text-centered">{{ $user->name }}</td>
+                <td class="has-text-centered"><a href="/admin/{{ $user->id }}/relatorio"><button class="btn"><i class="far fa-address-book is-size-6"></i></button></a></td>
+                <td class="has-text-centered"><a href="/admin/{{ $user->id }}"><button class="btn"><i class="fas fa-pencil-alt is-size-6"></i></button></a></td>
+                <td class="has-text-centered">
+                    <form method="POST" action="/admin/{{ $user->id }}" >
+                        @method('DELETE')
+                        @csrf
+                        <button class="btn" type="submit"><i class="fas fa-trash-alt is-size-6"></i></button>
+                    </form>   
+                </td>           
+            </tr>
+                @endforeach      
+            </tbody>
+        </table>
+    </div>
 </div>
 
 

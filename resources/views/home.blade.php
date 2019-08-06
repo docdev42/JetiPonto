@@ -13,6 +13,15 @@
             </div>
 
               <h1 class="title has-text-dark has-text-centered">Bem Vindo {{ Auth::user()->name }}</h1>
+
+              @if( Auth::user()->admin == true )
+                <div>
+                  <a href="/admin">
+                  <button class="button is-jeti is-medium is-fullwidth">
+                  <p class="is-white">Área do Administrador</p>
+                  </a>  
+                </div>
+              @endif
             
             <div>
               <a href="/scan/{{ Auth::user()->id }}">

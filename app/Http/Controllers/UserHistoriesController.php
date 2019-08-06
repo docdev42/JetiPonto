@@ -53,26 +53,37 @@ class UserHistoriesController extends Controller
             $today= Carbon::Today();
               
             if($lastday->date != $today)
-            {                
-                $attributes = [
-                    'user_id' => $user->id,
-                    'date' => Carbon::Today(),
-                    'entramanha' => Carbon::Now()
-                ];
+            {             
+                if(Carbon::Now()->format('H') < 12)
+                {   
+                    $attributes = [
+                        'user_id' => $user->id,
+                        'date' => Carbon::Today(),
+                        'entramanha' => Carbon::Now()
+                    ];
+                }
+                elseif(Carbon::Now()->format('H') >= 12)
+                {
+                    $attributes = [
+                        'user_id' => $user->id,
+                        'date' => Carbon::Today(),
+                        'entratarde' => Carbon::Now()
+                    ];
+                }
                 $user->addHistory($attributes);
                                 
             }
-            elseif($lastday->saimanha == null)
-            {
+            elseif($lastday->saimanha == null && Carbon::Now()->format('H') <= 13)
+            {                
                 $lastday->saimanha = Carbon::Now();
                 $lastday->save();
             }
-            elseif($lastday->entratarde == null)
+            elseif($lastday->entratarde == null && Carbon::Now()->format('H') >= 12 && Carbon::Now()->format('H') <=16)
             {
                 $lastday->entratarde = Carbon::Now();
                 $lastday->save();
             }
-            elseif($lastday->saitarde == null)
+            elseif($lastday->saitarde == null && Carbon::Now()->format('H') >= 12)
             {
                 $lastday->saitarde = Carbon::Now();
                 $lastday->save();
@@ -115,7 +126,7 @@ class UserHistoriesController extends Controller
     {
         
         $histories=History::where('date', $date)->get();
-        $users = User::all();
+        $users = User::orderBy('name')->get();
 
         if(Auth::user()->admin == true){
             return view('daily', compact('histories','users','date'));
