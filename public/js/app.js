@@ -38534,7 +38534,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "hero is-fullheight is-medium is-primary is-bold" },
+    { staticClass: "hero is-fullheight is-medium is-jeti is-bold" },
     [
       _c("div", { staticClass: "hero-body" }, [
         _c("div", { staticClass: "container" }, [

@@ -2,17 +2,17 @@
 
 
 @section('content')
-<section class="hero is-fullheight is-medium is-primary is-bold">
+<section class="hero is-fullheight is-medium is-jeti is-bold ">
   <div class="hero-body">
     <div class="container">
       <div class="columns is-centered">
         <article class="card is-rounded">
           <div class="card-content">
-            <div class="columns is-centered">                                   
+            <div class="columns is-centered is-mobile">                                   
               <img src="{{ asset('storage/logo.png') }}" alt="logo" width="200">
             </div>
 
-              <h1 class="title has-text-dark">Bem Vindo {{ Auth::user()->name }}</h1>
+              <h1 class="title has-text-dark has-text-centered">Bem Vindo {{ Auth::user()->name }}</h1>
             
             <div>
               <a href="/scan/{{ Auth::user()->id }}">

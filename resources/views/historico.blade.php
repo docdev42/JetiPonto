@@ -79,7 +79,7 @@
             @foreach($histories as $history)
         <tr>
             <td class="has-text-centered">
-                {{ $history->date->format('F') }}
+                {{ $history->date->formatLocalized('%B') }}
             </td>
             <td class="has-text-centered">{{ $history->date->day }}</td>
             <td class="has-text-centered">

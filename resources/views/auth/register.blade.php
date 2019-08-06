@@ -62,12 +62,11 @@
     <div class="row justify-content-center ">
         <div class="col-md-8">
             <div class="card">
-                <div class="columns is-centered">
+                <div class="columns is-centered is-mobile">
                     <img src="{{ asset('storage/logo.png') }}">
                 </div>
-                <div class="card-header columns is-centered">
-                    
-                    <h1 class="">Novo Colaborador</h1>
+                <div class="has-text-centered">
+                    <h1>Novo Colaborador</h1>
                 </div>
 
                 <div class="card-body">

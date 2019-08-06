@@ -1,5 +1,5 @@
 <template>
-  <div class="hero is-fullheight is-medium is-primary is-bold">  
+  <div class="hero is-fullheight is-medium is-jeti is-bold">  
     <div class="hero-body">
       <div class="container">
         <div class="columns is-centered">
